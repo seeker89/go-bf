@@ -6,26 +6,28 @@ import (
 	"os"
 )
 
+const CELLS int = 30000
+
 func main() {
 	// create and initialise our cells
-	var cells [30000]uint
-	for i := 0; i < 30000; i++ {
+	var cells [CELLS] uint
+	for i := 0; i < CELLS; i++ {
 		cells[i] = 0
 	}
 	var curr int = 0
 
 	data, err := ioutil.ReadAll(os.Stdin)
 	if err != nil {
-		fmt.Println("Could not read stdout")
+		panic(err)
 	}
 	program := string(data)
 
 	for i := 0; i < len(program); i++ {
 		switch program[i] {
 		case '>':
-			curr = (curr + 1) % 30000
+			curr = (curr + 1) % CELLS
 		case '<':
-			curr = (curr + 30000 - 1) % 30000
+			curr = (curr + CELLS - 1) % CELLS
 		case '+':
 			cells[curr]++
 		case '-':
@@ -33,7 +35,10 @@ func main() {
 		case '.':
 			fmt.Println(string(cells[curr]))
 		case ',':
-			fmt.Scanf("%d", &cells[curr])
+			_, err := fmt.Scanf("%d", &cells[curr])
+			if err != nil {
+				panic(err)
+			}
 		case '[':
 			if cells[curr] == 0 {
 				for program[i] != ']' {
