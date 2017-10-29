@@ -21,8 +21,7 @@ func main() {
 	program := string(data)
 
 	for i := 0; i < len(program); i++ {
-		char := program[i]
-		switch char {
+		switch program[i] {
 		case '>':
 			curr = (curr + 1) % 30000
 		case '<':
