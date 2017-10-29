@@ -11,9 +11,6 @@ const CELLS int = 30000
 func main() {
 	// create and initialise our cells
 	var cells [CELLS] uint
-	for i := 0; i < CELLS; i++ {
-		cells[i] = 0
-	}
 	var curr int = 0
 
 	data, err := ioutil.ReadAll(os.Stdin)
